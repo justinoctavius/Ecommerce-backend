@@ -6,7 +6,7 @@ ctrl.get = async (req, res) => {
     if(products){
         res.send(products)
     }else{
-        res.status(404).send('There aren\'t products')
+        res.status(404).send({msg: 'There aren\'t products'})
     }
 };
 
@@ -46,7 +46,7 @@ ctrl.delete = async (req, res) => {
         await deletedProduct.remove();
         res.send({message: 'product Deleted'})
     }else{
-        res.send('Error in deleting')
+        res.send({msg: 'Error in deleting'})
     }
 }
 

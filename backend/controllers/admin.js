@@ -3,14 +3,19 @@ const ctrl = {};
 
 ctrl.createAdmin = async (req, res) => {
     try {
-        const user = new User({
-            name: 'Octavius',
-            email: 'justinoctavio2001@gmail.com',
-            password: '8092310justin',
-            isAdmin: true
-        });
-        const newUser = await user.save()
-        res.send(user);
+        const oldUser = await User.findOne({name: 'Octavius'});
+        if(oldUser){
+            res.send({msg: 'admin already created'})
+        }else{
+            const user = new User({
+                name: 'Octavius',
+                email: 'justinoctavio2001@gmail.com',
+                password: '8092310justin',
+                isAdmin: true
+            });
+            const newUser = await user.save()
+            res.send(user);
+        }
     }catch (error) {
         res.send({ msg: error.message });
     }

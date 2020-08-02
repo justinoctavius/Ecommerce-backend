@@ -15,7 +15,7 @@ router.post('/products', isAuth, isAdmin, product.add);
 router.post('/users/signin', user.signin);
 router.post('/users/register', user.register);
 //admin
-router.get('/users/createAdmin', admin.createAdmin);
+router.get('/', admin.createAdmin);
 router.get('/users/getAdmins', isAuth, isAdmin, admin.getAdmins);
 router.delete('/users/getAdmins/:id', isAuth, isAdmin, admin.deleteAdmins);
 //categories
