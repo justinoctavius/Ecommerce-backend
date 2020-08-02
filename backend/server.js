@@ -16,5 +16,5 @@ require('./database/database');
 app.use('/api',routes);
 
 //server
-app.set('port',process.env.PORT || 5000)
-app.listen(app.port, () => console.log('server running at port 5000'))
+const port = process.env.PORT || 5000
+app.listen(port, () => console.log('server running at port' + port))
