@@ -3,7 +3,7 @@ const ctrl = {};
 
 ctrl.get = async (req, res) => {
     const products = await Product.find({});
-    res.send('hello word')
+    req.send({msg: 'hello word'})
     if(products){
         res.send(products)
     }else{
