@@ -2,9 +2,7 @@ const express = require('express');
 const data = require('./data');
 const cors = require('cors');
 const routes = require('./routes/routes');
-const dotenv = require("dotenv");
 const app = express();
-dotenv.config()
 //middleware
 app.use(cors());
 app.use(express.json());
