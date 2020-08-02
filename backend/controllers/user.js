@@ -1,19 +1,54 @@
 const { User } = require('../models');
+const { getToken } = require('../util');
 
 const ctrl = {};
 
-ctrl.createAdmin = async (req, res) => {
-    try {
+ctrl.signin = async (req, res) => {
+    const signinUser = await User.findOne({
+        email: req.body.email,
+        password: req.body.password
+    });
+    if(signinUser) {
+        res.send({
+            _id: signinUser.id,
+            name:signinUser.name,
+            email:signinUser.email,
+            isAdmin:signinUser.isAdmin,
+            token: getToken(signinUser)
+        })
+    }else{
+        res.status(401).send({msg: 'Invalid Email or Password'})
+    }
+}
+
+ctrl.register = async (req, res) => {
+    const isExists = await User.findOne({
+        $or: [
+            {name: req.body.name},
+            {name: req.body.email}
+        ]
+    });
+    if(isExists){
+        res.status(401).send({msg: 'user data already exist'})
+    }else{
         const user = new User({
-            name: 'Octavius',
-            email: 'justinoctavio2001@gmail.com',
-            password: '8092310justin',
-            isAdmin: true
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            isAdmin: req.body.isAdmin
         });
-        const newUser = await user.save()
-        res.send(user);
-    }catch (error) {
-        res.send({ msg: error.message });
+        const newUser = await user.save();
+        if(newUser) {
+            res.send({
+                _id: newUser.id,
+                name:newUser.name,
+                email:newUser.email,
+                isAdmin:newUser.isAdmin,
+                token: getToken(newUser)
+            })
+        }else{
+            res.send({msg: 'Invalid user data'}).status(401)
+        }
     }
 }
 
