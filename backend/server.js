@@ -1,7 +1,7 @@
-import express from 'express';
-import data from './data';
-import cors from 'cors';
-import routes from './routes/routes';
+const express = require('express');
+const data = require('./data');
+const cors = require('cors');
+const routes = require('./routes/routes');
 const dotenv = require("dotenv");
 const app = express();
 dotenv.config()

@@ -5,8 +5,10 @@ const ctrl = {};
 
 ctrl.signin = async (req, res) => {
     const signinUser = await User.findOne({
-        email: req.body.email,
-        password: req.body.password
+        $and: [
+            {email: req.body.email},
+            {password: req.body.password}
+        ]
     });
     if(signinUser) {
         res.send({
@@ -17,7 +19,7 @@ ctrl.signin = async (req, res) => {
             token: getToken(signinUser)
         })
     }else{
-        res.status(401).send({msg: 'Invalid Email or Password'})
+        res.status(404).send({msg: 'Invalid Email or Password'})
     }
 }
 

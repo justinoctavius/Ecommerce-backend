@@ -1,4 +1,4 @@
-import { isAuth, isAdmin } from '../util';
+const { isAuth, isAdmin } = require('../util');
 
 const express = require('express');
 const { user, product, category, admin } = require('../controllers');
@@ -23,4 +23,4 @@ router.get('/category', category.get)
 router.post('/category', isAuth, isAdmin, category.add)
 router.delete('/category/:id', isAuth, isAdmin, category.delete)
 
-export default router;
+module.exports = router;
