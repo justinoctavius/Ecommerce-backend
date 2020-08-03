@@ -25,6 +25,8 @@ ctrl.getAdmins = async (req, res) => {
     const admins = await User.find({isAdmin: true});
     if(admins.length > 0){
         res.send({admins})
+    }else{
+        res.send({msg: 'There isn\'t admin'}).status(404)
     }
 }
 
